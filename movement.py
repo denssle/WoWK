@@ -42,26 +42,27 @@ ROTATEFUNCTIONS = { 'q' : Vec3( 90,0,0),
 
 # Function to put instructions on the screen.
 def addInstructions(pos, msg):
-    return OnscreenText(text=msg, style=1, fg=(1,1,1,1),
-                        pos=(-1.3, pos), align=TextNode.ALeft, scale = .05)
+    return OnscreenText(text=msg, style=1, fg=(1,1,1,1), pos=(-1.3, pos), align=TextNode.ALeft, scale = .05)
 
 class World:
     def __init__(self):
         addInstructions(0.95, 'Text ')
         world = self.buildWorld()
         self.buildChar(world)
-
         taskMgr.add(self.loop, 'loop')
 
-
     def loop(self, task):
-        self.space.autoCollide()
+        print 'yep'
+        #self.space.autoCollide()
+        print 'yep2'
         self.character.setPosQuat(render, self.boxBody.getPosition(), Quat(self.boxBody.getQuaternion()))
-        self.contacts.empty()
+        #self.contacts.empty()
+        print 'yep3'
 
         self.moveCam()
         self.moveChar()
         #self.rotateChar()
+        print 'yo'
         return task.cont
 
     def buildWorld(self):
@@ -127,7 +128,7 @@ class World:
             self.character.setHpr(self.character, action * globalClock.getDt())
 
     def moveCam(self):
-        # trackt mausbewegung und aendert die ausrichtung der figur danach. 
+        # trackt mausbewegung und aendert die ausrichtung der figur danach.
         if base.mouseWatcherNode.hasMouse():
             md      = base.win.getPointer(0)
             deltaX  = md.getX()

@@ -47,22 +47,23 @@ def addInstructions(pos, msg):
 class World:
     def __init__(self):
         addInstructions(0.95, 'Text ')
-        world = self.buildWorld()
-        self.buildChar(world)
+        self.buildWorld()
+        self.buildChar()
         taskMgr.add(self.loop, 'loop')
 
     def loop(self, task):
-        print 'yep'
-        #self.space.autoCollide()
-        print 'yep2'
+        self.space.autoCollide()
+        self.world.quickStep(globalClock.getDt())
+
         self.character.setPosQuat(render, self.boxBody.getPosition(), Quat(self.boxBody.getQuaternion()))
-        #self.contacts.empty()
-        print 'yep3'
+        self.contacts.empty()
 
         self.moveCam()
         self.moveChar()
-        #self.rotateChar()
-        print 'yo'
+        self.rotateChar()
+
+        self.boxBody.setPosition(self.character.getPos(render))
+        self.boxBody.setQuaternion(self.character.getQuat(render))
         return task.cont
 
     def buildWorld(self):
@@ -72,43 +73,42 @@ class World:
         environment.setPos(0,0,0)
 
         # erstelle gravitation
-        world = OdeWorld()
-        world.setGravity(0, 0, -9.81)
-        world.initSurfaceTable(1)
-        #world.setSurfaceEntry(0, 0, 150, 0.0, 9.1, 0.9, 0.00001, 0.0, 0.002)
+        self.world = OdeWorld()
+        self.world.setGravity(0, 0, -9.81)
+        self.world.initSurfaceTable(1)
+        self.world.setSurfaceEntry(0, 0, 150, 0.0, 9.1, 0.9, 0.00001, 0.0, 0.002)
 
         self.space = OdeSimpleSpace()
-        self.space.setAutoCollideWorld(world)
-        #self.contacts = OdeJointGroup()
-        #self.space.setAutoCollideJointGroup(self.contacts)
+        self.space.setAutoCollideWorld(self.world)
+        self.contacts = OdeJointGroup()
+        self.space.setAutoCollideJointGroup(self.contacts)
 
         cm = CardMaker("ground")
-        cm.setFrame(-50, 50, -50, 50)
+        x = 100
+        cm.setFrame(-x, x, -x, x)
         ground = render.attachNewNode(cm.generate())
-        ground.setPos(0, 0, -1)
+        ground.setPos(0, 0, 0)
         ground.lookAt(0, 0, -1)
         groundGeom = OdePlaneGeom(self.space, Vec4(0, 0, 1, 0))
-        #groundGeom.setCollideBits(BitMask32(0x00000001))
-        #groundGeom.setCategoryBits(BitMask32(0x00000002))
+        groundGeom.setCollideBits(BitMask32(0x00000001))
+        groundGeom.setCategoryBits(BitMask32(0x00000002))
 
-        return world
-
-    def buildChar(self, world):
+    def buildChar(self):
         # lade den character
         self.character = loader.loadModel('box')
         self.character.reparentTo(render)
-        self.character.setPos(0,0,0)
+        self.character.setPos(0,0,10)
 
         M = OdeMass()
         M.setBox(50, 1, 1, 1)
 
-        self.boxBody = OdeBody(world)
+        self.boxBody = OdeBody(self.world)
         self.boxBody.setMass(M)
         self.boxBody.setPosition(self.character.getPos(render))
         self.boxBody.setQuaternion(self.character.getQuat(render))
-        boxGeom = OdeBoxGeom(self.space, 1, 1,1)
-        #boxGeom.setCollideBits(BitMask32(0x00000002))
-        #boxGeom.setCategoryBits(BitMask32(0x00000001))
+        boxGeom = OdeBoxGeom(self.space, 1,1,1)
+        boxGeom.setCollideBits(BitMask32(0x00000002))
+        boxGeom.setCategoryBits(BitMask32(0x00000001))
         boxGeom.setBody(self.boxBody)
 
         # positioniere die kamera

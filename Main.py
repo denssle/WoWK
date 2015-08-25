@@ -16,6 +16,9 @@ POLLKEYS.extend(
     'shift', 'shiftLock', 'space', 'tab', 'this', 'this_metatype', 'up',  'arrow_up', 'arrow_down', \
     'arrow_left', 'arrow_right' ] )
 
+#hier kommen alle existierenden objekte rein
+allObjects = {}
+
 # diese klasse speichert welche tasten momentan gedrueckt werden
 class KeyPollerClass( DirectObject ):
   def __init__( self ):
@@ -48,22 +51,26 @@ class World:
     def __init__(self):
         addInstructions(0.95, 'Text ')
         self.buildWorld()
-        self.buildChar()
+        self.mainCharakter = self.buildChar()
+        self.buildOtherStuff()
         taskMgr.add(self.loop, 'loop')
 
     def loop(self, task):
         self.space.autoCollide()
         self.world.quickStep(globalClock.getDt())
 
-        self.character.setPosQuat(render, self.boxBody.getPosition(), Quat(self.boxBody.getQuaternion()))
+        for obj, geo in allObjects.iteritems():
+            obj.setPosQuat(render, geo.getPosition(), Quat(geo.getQuaternion()))
+
         self.contacts.empty()
 
         self.moveCam()
         self.moveChar()
         self.rotateChar()
 
-        self.boxBody.setPosition(self.character.getPos(render))
-        self.boxBody.setQuaternion(self.character.getQuat(render))
+        for obj, geo in allObjects.iteritems():
+            self.geo.setPosition(self.obj.getPos(render))
+            self.geo.setQuaternion(self.obj.getQuat(render))
         return task.cont
 
     def buildWorld(self):
@@ -95,37 +102,45 @@ class World:
 
     def buildChar(self):
         # lade den character
-        self.character = loader.loadModel('box')
-        self.character.reparentTo(render)
-        self.character.setPos(0,0,10)
+        character = loader.loadModel('box')
+        character.reparentTo(render)
+        character.setPos(0,0,10)
 
         M = OdeMass()
         M.setBox(50, 1, 1, 1)
 
-        self.boxBody = OdeBody(self.world)
-        self.boxBody.setMass(M)
-        self.boxBody.setPosition(self.character.getPos(render))
-        self.boxBody.setQuaternion(self.character.getQuat(render))
+        boxBody = OdeBody(self.world)
+        boxBody.setMass(M)
+        boxBody.setPosition(character.getPos(render))
+        boxBody.setQuaternion(character.getQuat(render))
         boxGeom = OdeBoxGeom(self.space, 1,1,1)
         boxGeom.setCollideBits(BitMask32(0x00000002))
         boxGeom.setCategoryBits(BitMask32(0x00000001))
-        boxGeom.setBody(self.boxBody)
+        boxGeom.setBody(boxBody)
 
         # positioniere die kamera
         base.disableMouse()
-        base.camera.reparentTo(self.character)
+        base.camera.reparentTo(character)
         base.camera.setPos(0,40,20)
         base.camera.lookAt(0,0,5)
+
+        allObjects[character]=boxBody
+        return character
+
+    def buildOtherStuff(self):
+        teabot = loader.loadModel('teapot')
+        teabot.reparentTo(render)
+        teabot.setPos(0,10,20)
 
     def moveChar(self):
         for key, action in MOVEFUNCTIONS.items():
           if keyPoller[ key ]:
-            self.character.setPos( self.character, action * globalClock.getDt())
+            self.mainCharakter.setPos(self.mainCharakter, action * globalClock.getDt())
 
     def rotateChar(self):
         for key, action in ROTATEFUNCTIONS.items():
           if keyPoller[ key ]:
-            self.character.setHpr(self.character, action * globalClock.getDt())
+            self.mainCharakter.setHpr(self.mainCharakter, action * globalClock.getDt())
 
     def moveCam(self):
         # trackt mausbewegung und aendert die ausrichtung der figur danach.
@@ -133,8 +148,8 @@ class World:
             md      = base.win.getPointer(0)
             deltaX  = md.getX()
             deltaY  = md.getY()
-            print 'X: '+str(deltaX) +'Y: '+str(deltaY)
-            self.character.setHpr(deltaX * (-0.8),0,0)
+            #print 'X: '+str(deltaX) +'Y: '+str(deltaY)
+            self.mainCharakter.setHpr(deltaX * (-0.8),0,0)
 
 if __name__ == '__main__':
   # dieser teil wird nur ausgefuehrt wenn dieses file _nicht_ importiert wird

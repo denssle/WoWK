@@ -1,5 +1,4 @@
-
-from direct.directbase import DirectStart
+from direct.showbase.ShowBase import ShowBase
 from pandac.PandaModules import *
 from direct.showbase.DirectObject import DirectObject
 from direct.actor.Actor import Actor
@@ -41,9 +40,9 @@ MOVEFUNCTIONS = {   'w'   : Vec3(0,-20,0),
 class Character:
     def __init__(self, world, space):
         # lade den character
-        self.character = loader.loadModel('box')
+        self.character = Actor('box')
         self.character.reparentTo(render)
-        self.character.setPos(0,0,30)
+        self.character.setPos(0,0,10)
 
         M = OdeMass()
         M.setBox(50, 1, 1, 1)
@@ -61,7 +60,7 @@ class Character:
         base.disableMouse()
         base.camera.reparentTo(self.character)
         base.camera.setPos(0,40,20)
-        base.camera.lookAt(0,0,5)
+        base.camera.lookAt(self.character)
         print "Charakter erschaffen. "
 
     def getCharakter(self):
@@ -83,16 +82,23 @@ class Character:
             self.character.setPos(self.character, action * globalClock.getDt())
 
     def moveCam(self):
-        # trackt mausbewegung und aendert die ausrichtung der figur danach.
+        # trackt mausbewegung und aendert die ausrichtung der figur und kamara danach.
         if base.mouseWatcherNode.hasMouse():
             md      = base.win.getPointer(0)
-            deltaX  = md.getX()
-            deltaY  = md.getY()
-            #print 'X: '+str(deltaX) +'Y: '+str(deltaY)
-            self.character.setHpr(deltaX * (-0.8),0,0)
+            xmod = -0.8
+            ymod = 0.05
+            deltaX  = md.getX()*xmod
+            deltaY  = md.getY()*ymod
+            #print 'X: '+str(deltaX) +' Y: '+str(deltaY)
+            self.character.setHpr(deltaX,0,0)
+            #base.camera.lookAt(0, deltaY, 15)
+            base.camera.setPos(0,40,deltaY)
+            base.camera.lookAt(self.character)
 
     def sos(self):
         #print str(self.character.getZ())
         if(self.character.getZ() > 200 or self.character.getZ < 0):
-            print 'SOS'+ str(self.character.getZ())
+            print 'SOS'+ str(self.character.getZ())+' Boxy: '+str(self.boxBody.getAngularVel())
             self.character.setZ(0)
+            self.boxBody.setPosition(self.character.getPos(render))
+            self.boxBody.setQuaternion(self.character.getQuat(render))

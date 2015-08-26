@@ -1,9 +1,5 @@
-from direct.directbase import DirectStart
 from pandac.PandaModules import *
-from direct.showbase.DirectObject import DirectObject
-from direct.actor.Actor import Actor
-from direct.gui.OnscreenText import OnscreenText
-from panda3d.ode import OdeWorld
+
 
 class Object:
     def __init__(self, name, model, world, space,x, y, z):
@@ -24,7 +20,7 @@ class Object:
         boxGeom.setCategoryBits(BitMask32(0x00000001))
         boxGeom.setBody(self.boxBody)
 
-        print str(model)+' erschaffen. '
+        print name+' erschaffen. '
 
     def setPosOnGeo(self):
         self.obj.setPosQuat(render, self.boxBody.getPosition(), Quat(self.boxBody.getQuaternion()))

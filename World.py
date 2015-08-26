@@ -37,6 +37,9 @@ class World:
         #Alle Objekte:
         self.__allObjects = []
 
+    def clearContacts(self):
+        self.contacts.empty()
+
     def __getWorld(self):
         return self.__odeWorld
 
@@ -63,3 +66,4 @@ class World:
 
     def addToObjects(self, object):
         self.__allObjects.append(object)
+

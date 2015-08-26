@@ -38,14 +38,12 @@ MOVEFUNCTIONS = {   'w'   : Vec3(0,-20,0),
                     'd'   : Vec3(-20,0,0),
                     'space': Vec3(0,0,20)}
 
-ROTATEFUNCTIONS = { 'q' : Vec3( 90,0,0),
-                    'e': Vec3(-90,0,0)}
 class Character:
     def __init__(self, world, space):
         # lade den character
         self.character = loader.loadModel('box')
         self.character.reparentTo(render)
-        self.character.setPos(0,0,2)
+        self.character.setPos(0,0,30)
 
         M = OdeMass()
         M.setBox(50, 1, 1, 1)
@@ -84,11 +82,6 @@ class Character:
           if keyPoller[ key ]:
             self.character.setPos(self.character, action * globalClock.getDt())
 
-    def rotateChar(self):
-        for key, action in ROTATEFUNCTIONS.items():
-          if keyPoller[ key ]:
-            self.character.setHpr(self.character, action * globalClock.getDt())
-
     def moveCam(self):
         # trackt mausbewegung und aendert die ausrichtung der figur danach.
         if base.mouseWatcherNode.hasMouse():
@@ -97,3 +90,9 @@ class Character:
             deltaY  = md.getY()
             #print 'X: '+str(deltaX) +'Y: '+str(deltaY)
             self.character.setHpr(deltaX * (-0.8),0,0)
+
+    def sos(self):
+        #print str(self.character.getZ())
+        if(self.character.getZ() > 200 or self.character.getZ < 0):
+            print 'SOS'+ str(self.character.getZ())
+            self.character.setZ(0)

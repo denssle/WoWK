@@ -19,9 +19,19 @@ class Main:
         self.mainCharakter = Character.Character(self.world.odeWorld, self.world.space)
         self.world.addToObjects(self.mainCharakter)
 
-        teapot = Object.Object('teapot', self.world.odeWorld, self.world.space)
-        teapot.setPosition(0,10,20)
-        self.world.addToObjects(teapot)
+        teapot01 = Object.Object('teapo01',
+                                 'teapot',
+                                self.world.odeWorld,
+                               self.world.space,
+                               0,10,40)
+        self.world.addToObjects(teapot01)
+
+        teapot02 = Object.Object('teapo02',
+                                 'teapot',
+                                self.world.odeWorld,
+                               self.world.space,
+                               0,10,80)
+        self.world.addToObjects(teapot02)
 
         taskMgr.add(self.loop, 'loop')
 
@@ -31,12 +41,11 @@ class Main:
 
         for obj in self.world.getAllObjects():
             obj.setPosOnGeo()
-
-        self.world.contacts.empty()
+        self.world.clearContacts()
 
         self.mainCharakter.moveCam()
         self.mainCharakter.moveChar()
-        self.mainCharakter.rotateChar()
+        self.mainCharakter.sos()
 
         for obj in self.world.getAllObjects():
             obj.setGeoOnPos()
@@ -44,6 +53,5 @@ class Main:
         return task.cont
 
 if __name__ == '__main__':
-  # dieser teil wird nur ausgefuehrt wenn dieses file _nicht_ importiert wird
-  main = Main()
-  run()
+    main = Main()
+    run()

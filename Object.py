@@ -6,9 +6,11 @@ from direct.gui.OnscreenText import OnscreenText
 from panda3d.ode import OdeWorld
 
 class Object:
-    def __init__(self, model, world, space):
+    def __init__(self, name, model, world, space,x, y, z):
+        self.name = name
         self.obj = loader.loadModel(model)
         self.obj.reparentTo(render)
+        self.obj.setPos(x,y,z)
 
         M = OdeMass()
         M.setBox(50, 1, 1, 1)
@@ -23,9 +25,6 @@ class Object:
         boxGeom.setBody(self.boxBody)
 
         print str(model)+' erschaffen. '
-
-    def setPosition(self, x, y, z):
-        self.obj.setPos(x,y,z)
 
     def setPosOnGeo(self):
         self.obj.setPosQuat(render, self.boxBody.getPosition(), Quat(self.boxBody.getQuaternion()))

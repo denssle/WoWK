@@ -1,0 +1,56 @@
+from direct.directbase import DirectStart
+from pandac.PandaModules import *
+from direct.showbase.DirectObject import DirectObject
+from direct.actor.Actor import Actor
+from direct.gui.OnscreenText import OnscreenText
+from panda3d.ode import OdeWorld
+
+class World:
+    def __init__(self):
+        # lade eine umgebung
+        environment = loader.loadModel('environment')
+        environment.reparentTo(render)
+        environment.setPos(0,0,0)
+
+        # erstelle gravitation
+        self.__odeWorld = OdeWorld()
+        self.__odeWorld.setGravity(0, 0, -9.81)
+        self.__odeWorld.initSurfaceTable(1)
+        self.__odeWorld.setSurfaceEntry(0, 0, 150, 0.0, 9.1, 0.9, 0.00001, 0.0, 0.002)
+
+        self.__space = OdeSimpleSpace()
+        self.__space.setAutoCollideWorld(self.__odeWorld)
+        self.__contacts = OdeJointGroup()
+        self.__space.setAutoCollideJointGroup(self.__contacts)
+
+        cm = CardMaker("ground")
+        x = 100
+        cm.setFrame(-x, x, -x, x)
+        ground = render.attachNewNode(cm.generate())
+        ground.setPos(0, 0, 0)
+        ground.lookAt(0, 0, -1)
+        groundGeom = OdePlaneGeom(self.__space, Vec4(0, 0, 1, 0))
+        groundGeom.setCollideBits(BitMask32(0x00000001))
+        groundGeom.setCategoryBits(BitMask32(0x00000002))
+        print "Welt erschaffen. "
+
+    def __getWorld(self):
+        return self.__odeWorld
+
+    def __setWorld(self, world):
+        self.__odeWorld = world
+    odeWorld = property(__getWorld, __setWorld)
+
+    def __getSpace(self):
+        return self.__space
+
+    def __setSpace(self, space):
+        self.__space = space
+    space = property(__getSpace, __setSpace)
+
+    def __getContacts(self):
+        return self.__contacts
+
+    def __setContacs(self, contacts):
+        self.__contacts = contacts
+    contacts = property(__getContacts, __setContacs)

@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="767069e7-a275-48d0-9e45-26efe763b4ae" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Character.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Object.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/World.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/actor_moving.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cookbook.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lights.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/physics.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/camera-main.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/ground.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/hedge.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/ralph-run.egg.pz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/ralph-walk.egg.pz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/ralph.egg.pz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/ralph.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/rock03.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/teapot.egg.pz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/tree.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/roaming-ralph/models/world.egg.pz" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/movement.py" afterPath="$PROJECT_DIR$/Main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Character.py" afterPath="$PROJECT_DIR$/Character.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/World.py" afterPath="$PROJECT_DIR$/World.py" />
     </list>
     <ignored path="WoWK.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +28,8 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4012945">
-              <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.45307443">
+              <caret line="28" column="47" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="47" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -58,7 +41,31 @@
         <entry file="file://$PROJECT_DIR$/Object.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Character.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Character.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="91" column="26" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
+              <folding>
+                <element signature="e#1#42#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="World.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/World.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="41" column="12" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="12" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -83,8 +90,10 @@
         <option value="$PROJECT_DIR$/cookbook.py" />
         <option value="$PROJECT_DIR$/physics.py" />
         <option value="$PROJECT_DIR$/movement.py" />
-        <option value="$PROJECT_DIR$/Character.py" />
         <option value="$PROJECT_DIR$/Object.py" />
+        <option value="$PROJECT_DIR$/Character.py" />
+        <option value="$PROJECT_DIR$/World.py" />
+        <option value="$PROJECT_DIR$/Main.py" />
       </list>
     </option>
   </component>
@@ -361,36 +370,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Character.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.01618123">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Object.py">
+    <entry file="file://$PROJECT_DIR$/World.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <caret line="41" column="12" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="12" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/World.py">
+    <entry file="file://$PROJECT_DIR$/Character.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <caret line="91" column="26" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
+          <folding>
+            <element signature="e#1#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Object.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4012945">
-          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.45307443">
+          <caret line="28" column="47" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="47" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

@@ -34,6 +34,9 @@ class World:
         groundGeom.setCategoryBits(BitMask32(0x00000002))
         print "Welt erschaffen. "
 
+        #Alle Objekte:
+        self.__allObjects = []
+
     def __getWorld(self):
         return self.__odeWorld
 
@@ -54,3 +57,9 @@ class World:
     def __setContacs(self, contacts):
         self.__contacts = contacts
     contacts = property(__getContacts, __setContacs)
+
+    def getAllObjects(self):
+        return self.__allObjects
+
+    def addToObjects(self, object):
+        self.__allObjects.append(object)

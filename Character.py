@@ -45,7 +45,7 @@ class Character:
         # lade den character
         self.character = loader.loadModel('box')
         self.character.reparentTo(render)
-        self.character.setPos(0,0,10)
+        self.character.setPos(0,0,2)
 
         M = OdeMass()
         M.setBox(50, 1, 1, 1)
@@ -71,6 +71,13 @@ class Character:
 
     def getGeo(self):
         return self.boxBody
+
+    def setPosOnGeo(self):
+        self.character.setPosQuat(render, self.boxBody.getPosition(), Quat(self.boxBody.getQuaternion()))
+
+    def setGeoOnPos(self):
+        self.boxBody.setPosition(self.character.getPos(render))
+        self.boxBody.setQuaternion(self.character.getQuat(render))
 
     def moveChar(self):
         for key, action in MOVEFUNCTIONS.items():

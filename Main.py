@@ -1,4 +1,3 @@
-from direct.showbase.DirectObject import DirectObject
 from direct.showbase.ShowBase import ShowBase
 from pandac.PandaModules import AmbientLight, DirectionalLight, PerspectiveLens, Spotlight
 from pandac.PandaModules import TextNode, TransparencyAttrib, Vec3
@@ -10,7 +9,6 @@ import sys
 import World
 import Character
 import Object
-import EventHandler
 
 # Function to put instructions on the screen.
 def addInstructions(pos, msg):

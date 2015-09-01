@@ -30,13 +30,17 @@ class World:
         groundGeom.setCollideBits(BitMask32(0x00000001))
         groundGeom.setCategoryBits(BitMask32(0x00000002))
 
+        #kollision
+        base.cTrav=CollisionTraverser()
+        self.collisionHandler = CollisionHandlerQueue()
+
         print "Welt erschaffen. "
 
         #Alle Objekte:
         self.__allObjects = []
 
     def clearContacts(self):
-        self.contacts.empty()
+        self.__contacts.empty()
 
     def __getWorld(self):
         return self.__odeWorld
@@ -57,14 +61,14 @@ class World:
 
     def __setContacs(self, contacts):
         self.__contacts = contacts
-    contacts = property(__getContacts, __setContacs)
+        contacts = property(__getContacts, __setContacs)
 
     def getAllObjects(self):
         return self.__allObjects
 
     def addToObjects(self, object):
         self.__allObjects.append(object)
-
+        base.cTrav.addCollider(object.collider, self.collisionHandler)
 
     def setModelOnGeom(self):
         for obj in self.__allObjects:
@@ -74,3 +78,15 @@ class World:
     def setGeomOnModel(self):
         for obj in self.__allObjects:
             obj.setGeoOnPos()
+
+    def checkForCollision(self):
+        for i in range(self.collisionHandler.getNumEntries()):
+            entry = self.collisionHandler.getEntry(i)
+            if entry.getIntoNode().getName() == "terrain":
+                #self.character.setZ(entry.getSurfacePoint(render).getZ())
+                print 'something'
+
+            for j in self.__allObjects:
+                print str(j.name)+" VS "+ str(entry.getIntoNode().getName())
+                if j.name == entry.getIntoNode().getName():
+                    j.setZ(entry.getSurfacePoint(render).getZ())

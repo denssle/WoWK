@@ -35,12 +35,12 @@ class Main(ShowBase):
         self.world.space.autoCollide()
         self.world.odeWorld.quickStep(globalClock.getDt())
         self.world.setModelOnGeom()
+        self.world.checkForCollision()
         return task.cont
 
     def charakterTasks(self, task):
         #Charakter und Kamara koennen bewegt werden. Steht der Char falsch wird das korrigiert
         self.mainCharakter.moveCam()
-        self.mainCharakter.checkForCollision()
         self.mainCharakter.moveChar()
         self.mainCharakter.sos()
         return task.cont

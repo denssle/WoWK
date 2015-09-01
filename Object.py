@@ -23,6 +23,10 @@ class Object:
         frowneyCollider = self.obj.attachNewNode(CollisionNode(name))
         frowneyCollider.node().addSolid(CollisionSphere(0, 0, 0, 1))
 
+        #kollision
+        self.collider = self.obj.attachNewNode(CollisionNode('objectColliderNode'))
+        self.collider.node().addSolid(CollisionSphere(0, 0, 0, 1))
+
         print name+' erschaffen. '
 
     def setPosOnGeo(self):
@@ -31,3 +35,9 @@ class Object:
     def setGeoOnPos(self):
         self.boxBody.setPosition(self.obj.getPos(render))
         self.boxBody.setQuaternion(self.obj.getQuat(render))
+
+    def getName(self):
+        return self.name
+
+    def setZ(self, z):
+        self.obj.setZ(z)

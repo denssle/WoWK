@@ -42,6 +42,7 @@ class Character:
     def __init__(self, world, space):
         # lade den character
         self.character = Actor('models/box')
+        self.character.setScale(0.5)
         self.character.reparentTo(render)
         self.character.setPos(0,0,10)
 
@@ -63,23 +64,11 @@ class Character:
         base.camera.setPos(0,40,20)
         base.camera.lookAt(self.character)
 
-        base.cTrav=CollisionTraverser()
-        self.collisionHandler = CollisionHandlerQueue()
-        collider = self.character.attachNewNode(CollisionNode('colliderNode'))
-        collider.node().addSolid(CollisionSphere(0, 0, 0, 1))
-        base.cTrav.addCollider(collider, self.collisionHandler)
-
-        self.jump = False
-
+        #kollision
+        self.collider = self.character.attachNewNode(CollisionNode('characterColliderNode'))
+        self.collider.node().addSolid(CollisionSphere(0, 0, 0, 1))
+        self.name = "Name"
         print "Charakter erschaffen. "
-
-    def checkForCollision(self):
-        #print self.character.getPos()
-        if(self.jump is False):
-            for i in range(self.collisionHandler.getNumEntries()):
-                entry = self.collisionHandler.getEntry(i)
-                if entry.getIntoNode().getName() == "terrain":
-                    self.character.setZ(entry.getSurfacePoint(render).getZ())
 
     def getCharakter(self):
         return self.character
@@ -123,3 +112,9 @@ class Character:
             self.character.setZ(50)
             self.boxBody.setPosition(self.character.getPos(render))
             self.boxBody.setQuaternion(self.character.getQuat(render))
+
+    def getName(self):
+        return 'character'
+
+    def setZ(self, z):
+        self.character.setZ(z)

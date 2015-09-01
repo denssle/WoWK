@@ -3,6 +3,7 @@ from panda3d.ode import OdeWorld
 
 class World:
     def __init__(self):
+
         # lade eine umgebung
         environment = loader.loadModel('world')
         environment.reparentTo(render)

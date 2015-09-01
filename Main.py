@@ -6,6 +6,7 @@ from direct.task import Task
 from direct.gui.OnscreenImage import OnscreenImage
 from direct.gui.OnscreenText import OnscreenText
 from direct.interval.IntervalGlobal import *
+import sys
 import World
 import Character
 import Object
@@ -26,20 +27,27 @@ class Main(ShowBase):
         #self.eventHandler = EventHandler.EventHandler()
         self.makeSomeTea()
 
-        taskMgr.add(self.loop, 'loop')
+        taskMgr.add(self.worldTasksBeforCharacter, 'worldTask01')
+        taskMgr.add(self.charakterTasks, 'charakterTask02')
+        taskMgr.add(self.worldTasktsAfterCharacter, 'worldTask02')
+        self.accept("escape", sys.exit)
 
-    def loop(self, task):
+    def worldTasksBeforCharacter(self, task):
         #Kollisionen werden gesammelt, Gravitation ausgewfuehrt und das Modell auf die Position des Geoms gesetzt.
         self.world.space.autoCollide()
         self.world.odeWorld.quickStep(globalClock.getDt())
         self.world.setModelOnGeom()
+        return task.cont
 
+    def charakterTasks(self, task):
         #Charakter und Kamara koennen bewegt werden. Steht der Char falsch wird das korrigiert
         self.mainCharakter.moveCam()
         self.mainCharakter.checkForCollision()
         self.mainCharakter.moveChar()
         self.mainCharakter.sos()
+        return task.cont
 
+    def worldTasktsAfterCharacter(self, task):
         #das Gemom wird auf die eventuell neue Position des Charakters verlegt
         self.world.setGeomOnModel()
         return task.cont

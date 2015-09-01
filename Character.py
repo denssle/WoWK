@@ -37,6 +37,7 @@ MOVEFUNCTIONS = {   'w'   : Vec3(0,-20,0),
                     'd'   : Vec3(-20,0,0),
                     'space': Vec3(0,0,5 )}
 
+
 class Character:
     def __init__(self, world, space):
         # lade den character

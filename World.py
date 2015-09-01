@@ -5,7 +5,7 @@ class World:
     def __init__(self):
 
         # lade eine umgebung
-        environment = loader.loadModel('world')
+        environment = loader.loadModel('models/world')
         environment.reparentTo(render)
         environment.setPos(0,0,0)
 

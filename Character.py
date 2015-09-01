@@ -41,7 +41,7 @@ MOVEFUNCTIONS = {   'w'   : Vec3(0,-20,0),
 class Character:
     def __init__(self, world, space):
         # lade den character
-        self.character = Actor('box')
+        self.character = Actor('models/box')
         self.character.reparentTo(render)
         self.character.setPos(0,0,10)
 

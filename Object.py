@@ -4,7 +4,7 @@ from pandac.PandaModules import *
 class Object:
     def __init__(self, name, model, world, space,x, y, z):
         self.name = name
-        self.obj = loader.loadModel(model)
+        self.obj = loader.loadModel('models/'+str(model))
         self.obj.reparentTo(render)
         self.obj.setPos(x,y,z)
 
@@ -20,7 +20,7 @@ class Object:
         boxGeom.setCategoryBits(BitMask32(0x00000001))
         boxGeom.setBody(self.boxBody)
 
-        frowneyCollider = self.obj.attachNewNode(CollisionNode('teapot'))
+        frowneyCollider = self.obj.attachNewNode(CollisionNode(name))
         frowneyCollider.node().addSolid(CollisionSphere(0, 0, 0, 1))
 
         print name+' erschaffen. '

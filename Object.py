@@ -20,6 +20,9 @@ class Object:
         boxGeom.setCategoryBits(BitMask32(0x00000001))
         boxGeom.setBody(self.boxBody)
 
+        frowneyCollider = self.obj.attachNewNode(CollisionNode('teapot'))
+        frowneyCollider.node().addSolid(CollisionSphere(0, 0, 0, 1))
+
         print name+' erschaffen. '
 
     def setPosOnGeo(self):

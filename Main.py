@@ -1,10 +1,15 @@
+from direct.showbase.DirectObject import DirectObject
 from direct.showbase.ShowBase import ShowBase
-from pandac.PandaModules import *
+from pandac.PandaModules import AmbientLight, DirectionalLight, PerspectiveLens, Spotlight
+from pandac.PandaModules import TextNode, TransparencyAttrib, Vec3
+from direct.task import Task
+from direct.gui.OnscreenImage import OnscreenImage
 from direct.gui.OnscreenText import OnscreenText
+from direct.interval.IntervalGlobal import *
 import World
 import Character
 import Object
-
+import EventHandler
 
 # Function to put instructions on the screen.
 def addInstructions(pos, msg):
@@ -13,34 +18,30 @@ def addInstructions(pos, msg):
 class Main(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
-        wp = WindowProperties()
-        wp.setSize(1000, 800)
-
         addInstructions(0.95, 'Text ')
 
         self.world = World.World()
         self.mainCharakter = Character.Character(self.world.odeWorld, self.world.space)
         self.world.addToObjects(self.mainCharakter)
-
+        #self.eventHandler = EventHandler.EventHandler()
         self.makeSomeTea()
 
         taskMgr.add(self.loop, 'loop')
 
     def loop(self, task):
+        #Kollisionen werden gesammelt, Gravitation ausgewfuehrt und das Modell auf die Position des Geoms gesetzt.
         self.world.space.autoCollide()
         self.world.odeWorld.quickStep(globalClock.getDt())
+        self.world.setModelOnGeom()
 
-        for obj in self.world.getAllObjects():
-            obj.setPosOnGeo()
-        self.world.clearContacts()
-
+        #Charakter und Kamara koennen bewegt werden. Steht der Char falsch wird das korrigiert
         self.mainCharakter.moveCam()
+        self.mainCharakter.checkForCollision()
         self.mainCharakter.moveChar()
         self.mainCharakter.sos()
 
-        for obj in self.world.getAllObjects():
-            obj.setGeoOnPos()
-
+        #das Gemom wird auf die eventuell neue Position des Charakters verlegt
+        self.world.setGeomOnModel()
         return task.cont
 
     def makeSomeTea(self):

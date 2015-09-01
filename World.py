@@ -4,7 +4,7 @@ from panda3d.ode import OdeWorld
 class World:
     def __init__(self):
         # lade eine umgebung
-        environment = loader.loadModel('environment')
+        environment = loader.loadModel('world')
         environment.reparentTo(render)
         environment.setPos(0,0,0)
 
@@ -20,14 +20,15 @@ class World:
         self.__space.setAutoCollideJointGroup(self.__contacts)
 
         cm = CardMaker("ground")
-        x = 100
+        x = 1000
         cm.setFrame(-x, x, -x, x)
         ground = render.attachNewNode(cm.generate())
-        ground.setPos(0, 0, 0)
+        ground.setPos(0, 0, -10)
         ground.lookAt(0, 0, -1)
         groundGeom = OdePlaneGeom(self.__space, Vec4(0, 0, 1, 0))
         groundGeom.setCollideBits(BitMask32(0x00000001))
         groundGeom.setCategoryBits(BitMask32(0x00000002))
+
         print "Welt erschaffen. "
 
         #Alle Objekte:
@@ -63,3 +64,12 @@ class World:
     def addToObjects(self, object):
         self.__allObjects.append(object)
 
+
+    def setModelOnGeom(self):
+        for obj in self.__allObjects:
+            obj.setPosOnGeo()
+        self.clearContacts()
+
+    def setGeomOnModel(self):
+        for obj in self.__allObjects:
+            obj.setGeoOnPos()

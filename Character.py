@@ -35,7 +35,7 @@ MOVEFUNCTIONS = {   'w'   : Vec3(0,-20,0),
                     's'   : Vec3(0, 20,0),
                     'a'   : Vec3(20,0,0),
                     'd'   : Vec3(-20,0,0),
-                    'space': Vec3(0,0,20)}
+                    'space': Vec3(0,0,5 )}
 
 class Character:
     def __init__(self, world, space):
@@ -61,7 +61,24 @@ class Character:
         base.camera.reparentTo(self.character)
         base.camera.setPos(0,40,20)
         base.camera.lookAt(self.character)
+
+        base.cTrav=CollisionTraverser()
+        self.collisionHandler = CollisionHandlerQueue()
+        collider = self.character.attachNewNode(CollisionNode('colliderNode'))
+        collider.node().addSolid(CollisionSphere(0, 0, 0, 1))
+        base.cTrav.addCollider(collider, self.collisionHandler)
+
+        self.jump = False
+
         print "Charakter erschaffen. "
+
+    def checkForCollision(self):
+        #print self.character.getPos()
+        if(self.jump is False):
+            for i in range(self.collisionHandler.getNumEntries()):
+                entry = self.collisionHandler.getEntry(i)
+                if entry.getIntoNode().getName() == "terrain":
+                    self.character.setZ(entry.getSurfacePoint(render).getZ())
 
     def getCharakter(self):
         return self.character
@@ -77,9 +94,12 @@ class Character:
         self.boxBody.setQuaternion(self.character.getQuat(render))
 
     def moveChar(self):
+        self.jump = False
         for key, action in MOVEFUNCTIONS.items():
-          if keyPoller[ key ]:
-            self.character.setPos(self.character, action * globalClock.getDt())
+            if keyPoller[key]:
+                self.character.setPos(self.character, action * globalClock.getDt())
+                if key is 'space':
+                    self.jump = True
 
     def moveCam(self):
         # trackt mausbewegung und aendert die ausrichtung der figur und kamara danach.
@@ -99,6 +119,6 @@ class Character:
         #print str(self.character.getZ())
         if(self.character.getZ() > 200 or self.character.getZ < 0):
             print 'SOS'+ str(self.character.getZ())+' Boxy: '+str(self.boxBody.getAngularVel())
-            self.character.setZ(0)
+            self.character.setZ(50)
             self.boxBody.setPosition(self.character.getPos(render))
             self.boxBody.setQuaternion(self.character.getQuat(render))

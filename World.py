@@ -37,7 +37,7 @@ class World:
         print "Welt erschaffen. "
 
         #Alle Objekte:
-        self.__allObjects = []
+        self.__allObjects = {}
 
     def clearContacts(self):
         self.__contacts.empty()
@@ -67,26 +67,31 @@ class World:
         return self.__allObjects
 
     def addToObjects(self, object):
-        self.__allObjects.append(object)
+        self.__allObjects[object.name] = object
         base.cTrav.addCollider(object.collider, self.collisionHandler)
 
     def setModelOnGeom(self):
-        for obj in self.__allObjects:
+        for obj in self.__allObjects.values():
             obj.setPosOnGeo()
         self.clearContacts()
 
     def setGeomOnModel(self):
-        for obj in self.__allObjects:
+        for obj in self.__allObjects.values():
             obj.setGeoOnPos()
 
     def checkForCollision(self):
         for i in range(self.collisionHandler.getNumEntries()):
             entry = self.collisionHandler.getEntry(i)
+            #print str(entry.getIntoNode().getName())
+            print str(entry.getFromNodePath().getNode(0).getName())
             if entry.getIntoNode().getName() == "terrain":
-                #self.character.setZ(entry.getSurfacePoint(render).getZ())
-                print 'something'
+                for objectNames in self.__allObjects.keys():
+                    if entry.getFromNodePath().getNode(0).getName() == objectNames:
+                        self.__allObjects[objectNames].setZ(entry.getSurfacePoint(render).getZ())
 
+
+"""
             for j in self.__allObjects:
-                print str(j.name)+" VS "+ str(entry.getIntoNode().getName())
                 if j.name == entry.getIntoNode().getName():
                     j.setZ(entry.getSurfacePoint(render).getZ())
+"""

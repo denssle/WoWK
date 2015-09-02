@@ -40,6 +40,7 @@ MOVEFUNCTIONS = {   'w'   : Vec3(0,-20,0),
 
 class Character:
     def __init__(self, world, space):
+        self.name = "Name"
         # lade den character
         self.character = Actor('models/box')
         self.character.setScale(0.5)
@@ -65,9 +66,9 @@ class Character:
         base.camera.lookAt(self.character)
 
         #kollision
-        self.collider = self.character.attachNewNode(CollisionNode('characterColliderNode'))
+        self.collider = self.character.attachNewNode(CollisionNode(self.name))
         self.collider.node().addSolid(CollisionSphere(0, 0, 0, 1))
-        self.name = "Name"
+
         print "Charakter erschaffen. "
 
     def getCharakter(self):

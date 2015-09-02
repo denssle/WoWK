@@ -24,7 +24,7 @@ class Object:
         frowneyCollider.node().addSolid(CollisionSphere(0, 0, 0, 1))
 
         #kollision
-        self.collider = self.obj.attachNewNode(CollisionNode('objectColliderNode'))
+        self.collider = self.obj.attachNewNode(CollisionNode(name))
         self.collider.node().addSolid(CollisionSphere(0, 0, 0, 1))
 
         print name+' erschaffen. '

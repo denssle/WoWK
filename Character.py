@@ -45,7 +45,7 @@ class Character:
         self.character = Actor('models/box')
         self.character.setScale(0.5)
         self.character.reparentTo(render)
-        self.character.setPos(0,0,10)
+        self.character.setPos(0,0,30)
 
         M = OdeMass()
         M.setBox(50, 1, 1, 1)

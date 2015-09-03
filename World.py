@@ -83,15 +83,19 @@ class World:
         for i in range(self.collisionHandler.getNumEntries()):
             entry = self.collisionHandler.getEntry(i)
             #print str(entry.getIntoNode().getName())
-            print str(entry.getFromNodePath().getNode(0).getName())
+            #print str(entry.getFromNodePath().getNode(0).getName())
             if entry.getIntoNode().getName() == "terrain":
                 for objectNames in self.__allObjects.keys():
                     if entry.getFromNodePath().getNode(0).getName() == objectNames:
                         self.__allObjects[objectNames].setZ(entry.getSurfacePoint(render).getZ())
+                        #print str(objectNames)+ ' wurde in der Hoehe korrigiert. '
+            else:
+                for objectNames in self.__allObjects.keys():
+                    if entry.getFromNodePath().getNode(0).getName() == objectNames:
+                        attacker = self.__allObjects[objectNames].name
 
+                    if entry.getIntoNode().getName() == objectNames:
+                        victim = self.__allObjects[objectNames].name
 
-"""
-            for j in self.__allObjects:
-                if j.name == entry.getIntoNode().getName():
-                    j.setZ(entry.getSurfacePoint(render).getZ())
-"""
+                if(victim != attacker):
+                    print victim + ' is the victim and ' + attacker + 'is the attacker. '

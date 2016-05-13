@@ -1,14 +1,12 @@
-from direct.showbase.ShowBase import ShowBase
-from pandac.PandaModules import AmbientLight, DirectionalLight, PerspectiveLens, Spotlight
-from pandac.PandaModules import TextNode, TransparencyAttrib, Vec3
-from direct.task import Task
-from direct.gui.OnscreenImage import OnscreenImage
-from direct.gui.OnscreenText import OnscreenText
-from direct.interval.IntervalGlobal import *
 import sys
-import World
+
+from direct.gui.OnscreenText import OnscreenText
+from direct.showbase.ShowBase import ShowBase
+
 import Character
 import Object
+import World
+
 
 # Function to put instructions on the screen.
 def addInstructions(pos, msg):
@@ -53,16 +51,16 @@ class Main(ShowBase):
     def makeSomeTea(self):
         teapot01 = Object.Object('teapo01',
                                  'teapot',
-                                self.world.odeWorld,
-                               self.world.space,
-                               0,10,40)
+                                 self.world.odeWorld,
+                                 self.world.space,
+                                 0, 10, 40)
         self.world.addToObjects(teapot01)
 
         teapot02 = Object.Object('teapo02',
                                  'teapot',
-                                self.world.odeWorld,
-                               self.world.space,
-                               0,10,80)
+                                 self.world.odeWorld,
+                                 self.world.space,
+                                 0, 10, 80)
         self.world.addToObjects(teapot02)
 
 if __name__ == '__main__':

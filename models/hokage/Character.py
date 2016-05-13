@@ -1,9 +1,6 @@
-from direct.showbase.ShowBase import ShowBase
-from pandac.PandaModules import *
+from direct.directbase.DirectStart import base
 from direct.showbase.DirectObject import DirectObject
 from direct.actor.Actor import Actor
-from direct.gui.OnscreenText import OnscreenText
-from panda3d.ode import OdeWorld
 import string
 
 # liste von events die wir abfangen
@@ -18,7 +15,8 @@ POLLKEYS.extend(
 
 # diese klasse speichert welche tasten momentan gedrueckt werden
 class KeyPollerClass( DirectObject ):
-  def __init__( self ):
+  def __init__(self):
+    DirectObject.__init__(self)
     self.data = dict()
     for key in POLLKEYS:
       self.accept( key, self.event, [key, True] )

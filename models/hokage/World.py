@@ -1,5 +1,10 @@
+from direct.showbase.ShowBase import ShowBase
 from pandac.PandaModules import *
+from direct.showbase.DirectObject import DirectObject
+from direct.actor.Actor import Actor
+from direct.gui.OnscreenText import OnscreenText
 from panda3d.ode import OdeWorld
+import string
 
 class World:
     def __init__(self):

@@ -1,2 +1,2 @@
 Benötigt: 
-Panda 3D: https://www.panda3d.org/download.php
+180 ° Wendung: https://love2d.org/wiki/love.graphics

@@ -11,3 +11,5 @@ http://www.lua.org/manual/5.1/
 https://github.com/vrld/awesome-love2d
 
 http://ludumdare.com/compo/
+
+https://github.com/kikito/bump.lua
